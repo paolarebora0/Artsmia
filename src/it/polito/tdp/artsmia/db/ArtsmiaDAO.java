@@ -9,11 +9,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.jgrapht.graph.DefaultWeightedEdge;
+
 import it.polito.tdp.artsmia.model.Adiacenza;
 import it.polito.tdp.artsmia.model.ArtObject;
 
 public class ArtsmiaDAO {
 
+	//3. Aggiungo la idMap ai parametri
 	public List<ArtObject> listObjects(Map<Integer, ArtObject> idMap) {
 		
 		String sql = "SELECT * from objects";
@@ -25,6 +28,7 @@ public class ArtsmiaDAO {
 			ResultSet res = st.executeQuery();
 			while (res.next()) {
 
+				//3.1 Se non esiste nella mappa lo aggiungo e alla funz result
 				if(idMap.get(res.getInt("object_id")) == null) {
 					
 				
@@ -35,9 +39,13 @@ public class ArtsmiaDAO {
 					
 					idMap.put(artObj.getId(), artObj);
 					result.add(artObj);
+					
+				//3.2 Se esiste lo aggiungo direttamente
 				} else {
 					result.add(idMap.get(res.getInt("object_id"))); //Se l'oggetto è gia stato creato non lo creo più
 				}
+				
+				//4. Torno nel Model
 			}
 			conn.close();
 			return result;
@@ -49,9 +57,11 @@ public class ArtsmiaDAO {
 	}
 	
 	
-	
+	//5. Creo la query in sql 
+	//5.1 Creo una nuova classe con gli estessi valori degli archi -> Adiacenza
+	//6. Creo la funzione
 	public List<Adiacenza> listAdiacenze()  {
-		
+		//qui non mi serve passargli la idMap perche la classe adiacenza è gia con l'id
 		String sql = "SELECT e1.object_id AS o1, e2.object_id AS o2, COUNT(*) AS cnt " + 
 				"FROM exhibition_objects e1, exhibition_objects e2 " + 
 				"WHERE e1.exhibition_id = e2.exhibition_id " + 
@@ -73,13 +83,12 @@ public class ArtsmiaDAO {
 			}
 			conn.close();
 			return adj;
-			
+		//7.s Torno nel Model	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
 	
 	
 }

@@ -1,5 +1,6 @@
 package it.polito.tdp.artsmia.model;
 
+//5.1 Creo costruttore, getter e setter....
 public class Adiacenza {
 
 	private int o1;
