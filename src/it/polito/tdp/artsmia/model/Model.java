@@ -17,17 +17,17 @@ public class Model {
 	//1.1 Definisco il grafo e la idMap
 	private Graph<ArtObject, DefaultWeightedEdge> graph;
 	private Map<Integer, ArtObject> idMap;
+	private ArtsmiaDAO dao;
 	
 	//1.2 Li costruisco
 	public Model() {
-		idMap = new HashMap<Integer, ArtObject>();
-		graph = new SimpleWeightedGraph<ArtObject, DefaultWeightedEdge>(DefaultWeightedEdge.class);
+		dao = new ArtsmiaDAO();
 	}
 	
 	//2. Creo la funzione del grafo
 	public void creaGrafo() {
-		
-		ArtsmiaDAO dao = new ArtsmiaDAO();
+		idMap = new HashMap<Integer, ArtObject>();
+		graph = new SimpleWeightedGraph<ArtObject, DefaultWeightedEdge>(DefaultWeightedEdge.class);
 		dao.listObjects(idMap);
 		
 		//3. Vado nel dai e aggiungo la idMap alla funzione listObjects

@@ -83,7 +83,7 @@ public class ArtsmiaDAO {
 			}
 			conn.close();
 			return adj;
-		//7.s Torno nel Model	
+		//7. Torno nel Model	
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
